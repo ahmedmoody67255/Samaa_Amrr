@@ -43,26 +43,67 @@ h2{font-size:clamp(23px,4vw,35px);margin:12px 0 20px;color:#633e52}
 .letter p,.future p{line-height:2.05;font-size:15px;margin:10px auto;max-width:650px;color:#6d5963}
 .mini-divider{color:#d992b3;letter-spacing:8px;margin:24px 0}
 .wish{font-weight:600;color:#7c5267!important}
+
+/* ===== تحسينات شبكة المعرض والتنسيق البصري ===== */
 .gallery-section{margin-bottom:120px}
 .section-head{text-align:center;margin-bottom:30px}
 .section-head h2{margin-bottom:7px}.section-head p{color:var(--muted);font-size:14px}
-.gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
+
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:20px;
+  align-items:stretch
+}
+
 .photo{
-  grid-column:span 4;position:relative;margin:0;overflow:hidden;border-radius:24px;
-  background:#f7edf3;box-shadow:0 15px 40px rgba(105,64,84,.13);min-height:360px;
-  transform:translateY(22px);opacity:0;transition:transform .7s ease,opacity .7s ease,box-shadow .3s
+  grid-column:span 4;
+  position:relative;
+  margin:0;
+  overflow:hidden;
+  border-radius:24px;
+  background:#f7edf3;
+  box-shadow:0 15px 40px rgba(105,64,84,.12);
+  min-height:340px;
+  opacity:1; /* إظهار الصور بشكل مباشر لمنع اختفائها */
+  transform:none;
+  transition:transform .4s ease, box-shadow .4s ease
 }
-.photo.show{transform:none;opacity:1}
-.photo.tall{grid-row:span 2;min-height:600px}.photo.wide{grid-column:span 8;min-height:420px}
-.photo img{width:100%;height:100%;display:block;object-fit:cover;transition:transform .7s ease,filter .4s}
-.photo:hover{box-shadow:0 22px 55px rgba(105,64,84,.2)}
-.photo:hover img{transform:scale(1.035);filter:saturate(1.04)}
+
+.photo.wide{grid-column:span 8;min-height:340px}
+.photo.tall{grid-column:span 4;grid-row:span 2;min-height:700px}
+
+.photo img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  transition:transform .6s ease, filter .4s ease
+}
+
+.photo:hover{
+  transform:translateY(-6px);
+  box-shadow:0 22px 50px rgba(105,64,84,.22)
+}
+.photo:hover img{
+  transform:scale(1.04);
+  filter:saturate(1.08)
+}
+
 figcaption{
-  position:absolute;inset:auto 12px 12px 12px;padding:13px 15px;border-radius:18px;
-  background:rgba(255,255,255,.78);backdrop-filter:blur(12px);text-align:right
+  position:absolute;
+  inset:auto 12px 12px 12px;
+  padding:12px 16px;
+  border-radius:16px;
+  background:rgba(255,255,255,.85);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  text-align:right;
+  box-shadow:0 8px 20px rgba(0,0,0,.06)
 }
-figcaption b{display:block;font-family:"Playfair Display",serif;font-size:16px;color:#68465a}
+figcaption b{display:block;font-family:"Playfair Display",serif;font-size:15px;color:#68465a}
 figcaption span{display:block;font-size:11px;color:#88717d;margin-top:2px}
+
 .future{padding:55px 25px;text-align:center;margin-bottom:75px}
 .stars{color:#d995b4;letter-spacing:10px;font-size:18px}
 .goals{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:25px 0}
@@ -72,16 +113,25 @@ footer{text-align:center;color:#b095a2;font-size:11px;padding:0 0 28px;position:
 .soft-glow{position:fixed;width:220px;height:220px;border-radius:50%;filter:blur(55px);opacity:.18;pointer-events:none;z-index:0}
 .glow1{background:#ffb7d4;left:-100px;top:30%}.glow2{background:#d9b7ef;right:-100px;top:65%}
 .floater{position:fixed;pointer-events:none;z-index:10;font-size:16px;animation:rise linear forwards;opacity:.8}
+
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 @keyframes breathe{0%,100%{opacity:.5;transform:translateY(0)}50%{opacity:1;transform:translateY(4px)}}
 @keyframes rise{from{transform:translateY(105vh) rotate(0deg);opacity:0}12%{opacity:.8}to{transform:translateY(-12vh) rotate(35deg);opacity:0}}
-@media(max-width:720px){
+
+/* ===== التجاوب مع شاشات الموبايل والتابلت ===== */
+@media(max-width:850px){
+  .gallery{grid-template-columns:repeat(6,1fr)}
+  .photo{grid-column:span 3}
+  .photo.wide{grid-column:span 6}
+  .photo.tall{grid-column:span 3;grid-row:span 2}
+}
+
+@media(max-width:600px){
   main{padding:0 13px}.hero{min-height:92vh}.number{font-size:170px}
   .letter{padding:40px 20px;border-radius:24px;margin-bottom:85px}
-  .gallery{grid-template-columns:1fr 1fr;gap:11px}
-  .photo,.photo.tall,.photo.wide{grid-column:span 1;grid-row:auto;min-height:310px}
-  .photo.tall{min-height:430px}.photo.wide{grid-column:span 2;min-height:300px}
-  figcaption{inset:auto 7px 7px;padding:9px 10px;border-radius:14px}
-  figcaption b{font-size:13px}figcaption span{font-size:9px}
+  .gallery{grid-template-columns:1fr;gap:14px}
+  .photo,.photo.tall,.photo.wide{grid-column:span 1;grid-row:auto;min-height:280px}
+  figcaption{inset:auto 10px 10px;padding:10px 12px;border-radius:14px}
+  figcaption b{font-size:14px}figcaption span{font-size:10px}
   .gallery-section{margin-bottom:85px}.future{padding:42px 18px}
 }
